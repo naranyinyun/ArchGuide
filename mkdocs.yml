@@ -1,4 +1,4 @@
-site_name: Arch Linux 指南
+site_name: Arch Linux 安装和配置
 theme:
   name: material
 nav:
