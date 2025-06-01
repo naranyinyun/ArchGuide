@@ -1,0 +1,15 @@
+site_name: Arch Linux 指南
+theme:
+  name: material
+nav:
+  - Home: index.md
+  - 安装指南:
+      - 安装前准备: installGuide/pre-installation.md
+      - 开始安装: installGuide/installation.md
+
+markdown_extensions:
+  - codehilite
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
