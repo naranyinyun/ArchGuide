@@ -18,7 +18,7 @@ exit
 ```
 
 
-## 处理 Reflecor
+## 处理 Reflector
 
 > 系统的文件 /etc/pacman.d/mirrorlist 中定义了软件包会从哪个镜像站下载。在 LiveCD 启动的系统上，且在连接到互联网后，reflector 会通过选择 20 个最新同步的 HTTPS 镜像站并按下载速率对其进行排序来更新镜像列表（由于只考虑最新的 20 个镜像站，其结果常不佳）。如果有手动设置镜像站列表的需要，建议停止 reflector.service 服务。
 
@@ -38,7 +38,7 @@ curl -L 'https://archlinux.org/mirrorlist/?country=CN&protocol=https' -o /etc/pa
 #使用 Wiki 提供的大陆镜像
 ```
 !!! warning
-    不要添加 archlinuxcn 仓库，这违背 KISS 原则并会导致一些奇怪的问题！`/etc/pacman.d/miirrorlist` 会被新系统继承
+    不要添加 archlinuxcn 仓库，这违背 KISS 原则并会导致一些奇怪的问题！`/etc/pacman.d/mirrorlist` 会被新系统继承
 
 ## 分区
 
