@@ -38,9 +38,11 @@ curl -L 'https://archlinux.org/mirrorlist/?country=CN&protocol=https' -o /etc/pa
 #使用 Wiki 提供的大陆镜像
 ```
 !!! warning
-    不要添加 archlinuxcn 仓库，这违背 KISS 原则并会导致一些奇怪的问题！`/etc/pacman.d/mirrorlist` 会被新系统继承
+    不要现在就添加 archlinuxcn 仓库，为了确保系统正常安装，所有的基础软件包都应该来自官方仓库，如需请在安装后添加。`/etc/pacman.d/mirrorlist` 会被新系统继承
 
 ## 分区
+
+在本节中，会以 `/dev/sdnx` 设备，如果你安装了 NVMe 硬盘，它应该是 `/dev/nvmenxpx`，总是，不要照抄.
 
 ### 创建分区
 执行
@@ -54,7 +56,7 @@ fdisk -l
     如果看不见您的硬盘，关闭 RAID
 
 !!! danger
-    谨慎操作！双系统不要新建 EFI，也不要动 Microsoft Basic Data！数据是无价的，您比我更清楚。
+    谨慎操作，双系统不要新建 EFI，也不要动 Microsoft Basic Data，数据是无价的。
 
 !!! tip
     在一些没有对齐的硬盘上，分区工具可能会给出提示，忽略即可，进行对齐需要格式化整块硬盘并重新创建 GPT 表。
@@ -92,6 +94,9 @@ btrfs subvolume create /mnt/@ # 创建 / 目录子卷
 btrfs subvolume create /mnt/@home # 创建 /home 目录子卷
 btrfs subvolume create /mnt/@snapshots # 创建 /snapshots 目录子卷
 ```
+!!! warning
+    这是 archinstall 脚本默认的子卷布局，我们也推荐这样分配，因为推荐的快照工具是 snappe r，如果你喜欢其他快照工具，请查阅 Wiki 以了解子卷布局。
+
 卸载根文件系统
 ```shell
 umount /mnt
@@ -178,7 +183,7 @@ bootctl install
 ```
 编辑 `/boot/loader/loader.conf` 文件，添加以下内容
 ```ini
-default @save
+default @saved
 timeout 5
 editor no
 console-mode max
@@ -190,12 +195,14 @@ linux   /vmlinuz-linux # Linux 内核，请根据实际情况修改
 initrd  /initramfs-linux.img # initramfs 文件，请根据实际情况修改
 options root=UUID=<UUID> rootflags=subvol=@ rw # 根文件系统的 UUID，请根据实际情况修改
 ```
+!!! danger
+    现在就启用（enable）`systemd-boot-update.service`，这会在系统更新时自动更新 systemd-boot 以防止潜在的问题。
 
 !!! danger
-    对于 btrfs 文件系统，`rootflags=subvol=@` 是必须的，因为我们使用了子卷。否则你就会见到 arch linux“设计精美的“Kernel Panic 画面![BSOD](BSOD.jpg)
+    对于 btrfs 文件系统，`rootflags=subvol=@` 是必须的，因为我们使用了子卷。否则你就会见到 arch linux “设计精美的“ Kernel Panic 画面![BSOD](BSOD.jpg)
     如果您使用的是其他文件系统，请根据实际情况修改。
 !!! tip
-    请将 `<UUID>` 替换为您的根文件系统的 UUID，可以通过 `blkid` 命令获取。
+    请将 `<UUID>` 替换为您的根文件系统的 UUID，可以通过 `blkid` 命令获取，注意核对。执行不带参数的 `bootctl` 来检查配置文件是否正确。
 
 ## 结束安装
 退出 chroot 环境
