@@ -38,6 +38,12 @@ DHCP=yes
 ```
 网络接口名称可以通过运行 `ip link` 命令来查看。
 
+将 systemd-resolved 的符号链接设置为 `/etc/resolv.conf`：
+
+```bash
+ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+```
+
 重启网络服务以应用更改：
 
 ```bash
@@ -82,10 +88,15 @@ bash <(curl -s "https://end-4.github.io/dots-hyprland-wiki/setup.sh")
 ```ini
 # ~/.config/hypr/hyprland.conf
 # 设置语言环境
-$LANG=zh_CN.UTF-8
-env = LANG,$LANG
+
+env = LANG,zh_CN.UTF-8
 exec-once=dbus-update-activation-environment --systemd LANG
 ```
+!!! warning
+    Hyprland 不需要 `env = GTK_IM_MODULE,fcitx
+    env = QT_IM_MODULE,fcitx
+    env = XMODIFIERS,@im=fcitx
+    `，因为 Hyprland 使用 Wayland，而 Fcitx5 在 Wayland 下不需要这些环境变量。
 
 ## Btrfs 快照
 
@@ -117,6 +128,8 @@ cd paru
 makepkg -si
 ```
 如果你添加了 archlinuxcn 源，直接安装`paru` 即可。
+
+以下均为推荐，按需安装
 
 安装 Chrome：
 ```bash
