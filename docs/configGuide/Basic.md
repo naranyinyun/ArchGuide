@@ -115,7 +115,7 @@ snapper -c config create-config /path/to/subvolume
 > 
 > 在 /path/to/subvolume/.snapshots 处创建一个子卷，用于存储未来该配置文件产生的子卷。子卷的路径将会是 /path/to/subvolume/.snapshots/#/snapshot，# 是子卷序号。
 
-可以按需设置自动快照，具体参阅 [Snapper 的 Arch Wiki(https://wiki.archlinuxcn.org/wiki/Snapper#%E8%87%AA%E5%8A%A8%E6%8C%89%E6%97%B6%E5%88%9B%E5%BB%BA%E5%BF%AB%E7%85%A7)。请在重大更改前手动创建快照，以便在出现问题时可以恢复。
+可以按需设置自动快照，具体参阅 [Snapper 的 Arch Wiki](https://wiki.archlinuxcn.org/wiki/Snapper#%E8%87%AA%E5%8A%A8%E6%8C%89%E6%97%B6%E5%88%9B%E5%BB%BA%E5%BF%AB%E7%85%A7)。请在重大更改前手动创建快照，以便在出现问题时可以恢复。
 
 ```bash
 snapper -c config create --description "Before major change"
