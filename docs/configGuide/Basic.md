@@ -98,6 +98,9 @@ exec-once=dbus-update-activation-environment --systemd LANG
     env = XMODIFIERS,@im=fcitx
     `，因为 Hyprland 使用 Wayland，而 Fcitx5 在 Wayland 下不需要这些环境变量。
 
+!!! danger
+    请审查安装脚本，尽管 shell 脚本可读性极差，必须保证知道脚本做了什么，才有可能恢复更改或修复问题。尽量不要使用来路不明的脚本，原因见下一节。
+
 ## Btrfs 快照
 
 如果你使用 Btrfs 文件系统，可以使用 `snapper` 来管理快照。

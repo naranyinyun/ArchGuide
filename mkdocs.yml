@@ -19,6 +19,8 @@ nav:
       - 开始安装: installGuide/installation.md
   - 配置指南:
       - 基础配置: configGuide/Basic.md
+      - 碎碎念: configGuide/Note.md
+      - 令人头疼的英伟达: configGuide/NVIDIA.md
 
 markdown_extensions:
   - codehilite
