@@ -42,7 +42,7 @@ curl -L 'https://archlinux.org/mirrorlist/?country=CN&protocol=https' -o /etc/pa
 
 ## 分区
 
-在本节中，会以 `/dev/sdnx` 设备，如果你安装了 NVMe 硬盘，它应该是 `/dev/nvmenxpx`，总是，不要照抄.
+在本节中，会以 `/dev/sdnx` 设备，如果你安装了 NVMe 硬盘，它应该是 `/dev/nvmenxpx`，总是，不要照抄。
 
 ### 创建分区
 执行
@@ -92,10 +92,7 @@ mount -t btrfs -o compress=zstd /dev/sdxn /mnt
 ```shell
 btrfs subvolume create /mnt/@ # 创建 / 目录子卷
 btrfs subvolume create /mnt/@home # 创建 /home 目录子卷
-btrfs subvolume create /mnt/@snapshots # 创建 /snapshots 目录子卷
-```
-!!! warning
-    这是 archinstall 脚本默认的子卷布局，我们也推荐这样分配，因为推荐的快照工具是 snappe r，如果你喜欢其他快照工具，请查阅 Wiki 以了解子卷布局。
+```。
 
 卸载根文件系统
 ```shell
@@ -110,10 +107,8 @@ mount -t btrfs -o compress=zstd,subvol=@ /dev/sdxn /mnt
 mkdir /mnt/home
 mount -t btrfs -o compress=zstd,subvol=@home /dev/sdxn /mnt/home
 ```
-挂载 snapshots 子卷
-```shell
-mkdir /mnt/snapshots
-mount -t btrfs -o compress=zstd,subvol=@snapshots /dev/sdxn /mnt/snapshots
+
+
 ```
 挂载 EFI 分区
 ```shell
@@ -125,7 +120,7 @@ mount /dev/sdxn /mnt/boot
 首先，安装基本系统和工具，您可以把喜欢的工具添加到安装命令中，比如 `vim` 或 `htop` 。
 ```shell
 #我推荐安装这些
-pacstrap -K /mnt base linux linux-firmware nano btrfs-progs
+pacstrap -K /mnt base linux linux-firmware nano btrfs-progs sudo wpa_supplicant # 如果你喜欢 systemd，也可以用 run0
 ```
 生成 fstab 文件
 ```shell
@@ -199,7 +194,7 @@ options root=UUID=<UUID> rootflags=subvol=@ rw # 根文件系统的 UUID，请�
     现在就启用（enable）`systemd-boot-update.service`，这会在系统更新时自动更新 systemd-boot 以防止潜在的问题。
 
 !!! danger
-    对于 btrfs 文件系统，`rootflags=subvol=@` 是必须的，因为我们使用了子卷。否则你就会见到 arch linux “设计精美的“ Kernel Panic 画面![BSOD](BSOD.jpg)
+    对于 btrfs 文件系统，`rootflags=subvol=@` 是必须的，因为我们使用了子卷。否则你就会见到 arch linux“设计精美的“Kernel Panic 画面![BSOD](BSOD.jpg)
     如果您使用的是其他文件系统，请根据实际情况修改。
 !!! tip
     请将 `<UUID>` 替换为您的根文件系统的 UUID，可以通过 `blkid` 命令获取，注意核对。执行不带参数的 `bootctl` 来检查配置文件是否正确。
