@@ -1,6 +1,17 @@
 site_name: Arch Linux 安装和配置
 theme:
   name: material
+  features:
+    - navigation.footer
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
 nav:
   - Home: index.md
   - 安装指南:
@@ -13,3 +24,10 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/naranyinyun/ArchGuide
+
+copyright: Shared under the CC BY-NC-SA 4.0 license. 2025 Naranyinyun.
