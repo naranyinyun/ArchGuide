@@ -92,7 +92,9 @@ mount -t btrfs -o compress=zstd /dev/sdxn /mnt
 ```shell
 btrfs subvolume create /mnt/@ # 创建 / 目录子卷
 btrfs subvolume create /mnt/@home # 创建 /home 目录子卷
-```。
+```
+!!! info
+    有些教程在这步会创建 `.snapshots` 子卷，我们推荐的 `snapper` 或更流行的 `timeshift` 都会在初始化时创建此子卷，如果提前创建，需要手动修复，方法见 [Arch Wiki 建立一个新的配置的](https://wiki.archlinuxcn.org/wiki/Snapper#%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E9%85%8D%E7%BD%AE)
 
 卸载根文件系统
 ```shell
